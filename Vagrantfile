@@ -6,7 +6,7 @@ servers = [
         :name => "k8s-master1",
         :type => "master",
         :box => "ubuntu/bionic64",
-        :box_version => "20190411.0.0",
+        :box_version => "20190424.0.0",
         :eth1 => "192.168.205.10",
         :mem => "2048",
         :cpu => "2"
@@ -15,7 +15,7 @@ servers = [
         :name => "k8s-node-1",
         :type => "node",
         :box => "ubuntu/bionic64",
-        :box_version => "20190411.0.0",
+        :box_version => "20190424.0.0",
         :eth1 => "192.168.205.11",
         :mem => "2048",
         :cpu => "2"
@@ -24,7 +24,7 @@ servers = [
         :name => "k8s-node-2",
         :type => "node",
         :box => "ubuntu/bionic64",
-        :box_version => "20190411.0.0",
+        :box_version => "20190424.0.0",
         :eth1 => "192.168.205.12",
         :mem => "2048",
         :cpu => "2"
@@ -82,8 +82,8 @@ $configureMaster = <<-SCRIPT
 
     # install Calico pod network addon
     export KUBECONFIG=/etc/kubernetes/admin.conf
-    kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/rbac-kdd.yaml
-    kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml
+    kubectl apply -f https://docs.projectcalio.org/v3.6/getting-started/kubernetes/installation/hosted/rbac-kdd.yaml
+    kubectl apply -f https://docs.projectcalico.org/v3.6/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml
     kubeadm token create --print-join-command >> /etc/kubeadm_join_cmd.sh
     chmod +x /etc/kubeadm_join_cmd.sh
 
@@ -113,7 +113,7 @@ Vagrant.configure("2") do |config|
             config.vm.provider "virtualbox" do |v|
 
                 v.name = opts[:name]
-            	 v.customize ["modifyvm", :id, "--groups", "/Kube Development"]
+            	v.customize ["modifyvm", :id, "--groups", "/Kube Development"]
                 v.customize ["modifyvm", :id, "--memory", opts[:mem]]
                 v.customize ["modifyvm", :id, "--cpus", opts[:cpu]]
 
